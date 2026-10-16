@@ -277,12 +277,13 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
           if (profRes.data) {
             setProfile(profRes.data);
           } else {
-            // No profile found - user must complete onboarding
-            if (window.location.pathname !== '/onboarding') {
-              window.location.href = '/onboarding';
-              return;
-            }
-            setProfile({ ...DEFAULT_PROFILE, id: user.id, user_id: user.id, username: '' });
+            // No profile in database yet - initialize default profile without interrupting page load
+            setProfile({
+              ...DEFAULT_PROFILE,
+              id: user.id,
+              user_id: user.id,
+              username: user.user_metadata?.username || user.email?.split('@')[0] || 'Initiate',
+            });
           }
 
           if (attrRes.data) setAttributes(attrRes.data);

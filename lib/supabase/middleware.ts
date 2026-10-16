@@ -41,8 +41,13 @@ export async function updateSession(request: NextRequest) {
 
     const { data: { user } } = await supabase.auth.getUser();
 
-    // Protect authenticated routes
-    const protectedRoutes = ['/dashboard', '/onboarding', '/character', '/quests', '/inventory', '/calendar', '/achievements'];
+    // Do not intercept authentication pages
+    if (request.nextUrl.pathname.startsWith('/auth')) {
+      return supabaseResponse;
+    }
+
+    // Protect authenticated routes if no active session
+    const protectedRoutes = ['/dashboard', '/character', '/quests', '/inventory', '/calendar', '/achievements'];
     const isProtectedRoute = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route));
 
     if (isProtectedRoute && !user) {
