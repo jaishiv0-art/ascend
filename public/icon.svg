@@ -1,0 +1,49 @@
+<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hexFill" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#111A2E"/>
+    </linearGradient>
+    <linearGradient id="hexStroke" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="ascentLine" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="60%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#F0ABFC"/>
+    </linearGradient>
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Hexagon: achievement badge / shield -->
+  <polygon points="80,10 140,45 140,115 80,150 20,115 20,45"
+           fill="url(#hexFill)" stroke="url(#hexStroke)" stroke-width="2.5"/>
+
+  <!-- Inner hex hairline for depth -->
+  <polygon points="80,22 129,50 129,110 80,138 31,110 31,50"
+           fill="none" stroke="#22D3EE" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Streak tick marks along the base (consistency) -->
+  <rect x="44" y="118" width="6" height="10" rx="1.5" fill="#22D3EE" opacity="0.5"/>
+  <rect x="54" y="112" width="6" height="16" rx="1.5" fill="#22D3EE" opacity="0.7"/>
+  <rect x="64" y="105" width="6" height="23" rx="1.5" fill="#22D3EE" opacity="0.9"/>
+
+  <!-- Ascending XP line forming an "A" silhouette, peaking at the checkpoint node -->
+  <g filter="url(#glow)">
+    <path d="M46 112 L80 46 L114 112" fill="none" stroke="url(#ascentLine)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M62 84 L98 84" fill="none" stroke="url(#ascentLine)" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
+  </g>
+
+  <!-- Checkpoint node: "you are here" -->
+  <circle cx="80" cy="46" r="13" fill="url(#nodeGlow)"/>
+  <circle cx="80" cy="46" r="5" fill="#F8FAFC"/>
+</svg>

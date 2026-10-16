@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+:root {
+  /* ASCEND Apple-Inspired Bright Premium Palette */
+  --bg-base: #FAFAF8;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F2F2F7;
+  
+  --border-subtle: #E5E5EA;
+  --border-strong: #D1D1D6;
+
+  /* Accent Gradient (Primary CTAs, XP Progress ONLY) */
+  --accent-gradient: linear-gradient(135deg, #7C3AED 0%, #38BDF8 100%);
+  --accent-primary: #7C3AED;
+  --accent-secondary: #38BDF8;
+  
+  /* Status & Currency Tokens */
+  --accent-gold: #C9A227;
+  --accent-success: #2E7D32;
+  --accent-danger: #D32F2F;
+
+  /* Apple-Grade Typography Colors */
+  --text-primary: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --text-tertiary: #8E8E93;
+
+  /* Card Shadow */
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+body {
+  background-color: var(--bg-base);
+  background-image: url('/bg-magic.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+  color: var(--text-primary);
+  font-family: var(--font-sans, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Strong white wash overlay so background is very pale like the reference design */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.82);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Custom Soft Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAFAF8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C7C7CC;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #AEAEB2;
+}
+
+/* Apple Floating Card Utility */
+.apple-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(229, 229, 234, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(100, 80, 200, 0.06);
+  border-radius: 20px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.06);
+  border-color: #D1D1D6;
+}
+
+/* Gradient Pill Utilities */
+.btn-primary-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #38BDF8 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary-gradient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+  opacity: 0.96;
+}
+
+.btn-primary-gradient:active {
+  transform: scale(0.97);
+}
+
+/* Focus Ring */
+*:focus-visible {
+  outline: 2px solid #7C3AED;
+  outline-offset: 2px;
+}
+
+/* Mascot Gentle Hanging Swing Animation */
+@keyframes mascot-swing {
+  0% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(-4deg);
+  }
+}
+
+.animate-mascot-swing {
+  animation: mascot-swing 3.5s ease-in-out infinite;
+  transform-origin: 50% 12px;
+}
+
+/* Ambient Background Motion (GPU-accelerated transforms) */
+@keyframes ambient-drift-1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(30px, -40px, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-25px, 20px, 0) scale(0.94);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes ambient-drift-2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(-35px, 25px, 0) scale(0.92);
+  }
+  66% {
+    transform: translate3d(20px, -30px, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes ambient-drift-3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(20px, 35px, 0) scale(1.1);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes ambient-particle-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.55;
+  }
+  75% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(var(--particle-drift-x, 15px), -100px, 0);
+    opacity: 0;
+  }
+}
+
+.animate-ambient-orb-1 {
+  animation: ambient-drift-1 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-ambient-orb-2 {
+  animation: ambient-drift-2 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-ambient-orb-3 {
+  animation: ambient-drift-3 26s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-ambient-particle {
+  animation: ambient-particle-float var(--particle-duration, 14s) ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-mascot-swing,
+  .animate-ambient-orb-1,
+  .animate-ambient-orb-2,
+  .animate-ambient-orb-3,
+  .animate-ambient-particle {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+
