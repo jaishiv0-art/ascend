@@ -67,7 +67,12 @@ const CreateQuestModalDialog: React.FC<CreateQuestModalDialogProps> = ({
     if (editQuest?.due_date) {
       return editQuest.due_date.includes('T') ? editQuest.due_date.split('T')[0] : editQuest.due_date;
     }
-    return defaultDueDate || '';
+    if (defaultDueDate) return defaultDueDate;
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   });
   const [recurringDays, setRecurringDays] = useState<Weekday[]>(() => {
     if (editQuest?.recurring_days && Array.isArray(editQuest.recurring_days) && editQuest.recurring_days.length > 0) {

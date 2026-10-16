@@ -43,7 +43,7 @@ export default function DashboardPage() {
     }
     if (q.due_date) {
       const due = q.due_date.includes('T') ? q.due_date.split('T')[0] : q.due_date;
-      return due === todayIso;
+      return due === todayIso || (q.status === 'Active' && due <= todayIso);
     }
     return q.status === 'Active' || isQuestCompletedOnDate(q, todayIso);
   });
@@ -51,11 +51,15 @@ export default function DashboardPage() {
   // "Active" tab shows all quests for today (pending + completed recurring habits)
   // so completed quests stay visible and don't disappear after refresh
   const activeToday = todayQuests.filter((q) => !isQuestCompletedOnDate(q, todayIso) || q.is_recurring);
-  const completedToday = todayQuests.filter((q) => isQuestCompletedOnDate(q, todayIso));
-  const dailyQuests = todayQuests.filter((q) => q.is_recurring);
+  const completedToday = quests.filter((q) => q.status === 'Completed' || isQuestCompletedOnDate(q, todayIso));
+  const dailyQuests = quests.filter((q) => q.is_recurring);
 
   let displayedQuests = activeToday;
-  if (filterType === 'All') displayedQuests = todayQuests;
+  if (filterType === 'All') {
+    displayedQuests = [...quests].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+  }
   if (filterType === 'Daily') displayedQuests = dailyQuests;
   if (filterType === 'Completed') displayedQuests = completedToday;
 
@@ -219,7 +223,11 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <CreateQuestModal isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} />
+      <CreateQuestModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        defaultDueDate={todayIso}
+      />
     </div>
   );
 }
