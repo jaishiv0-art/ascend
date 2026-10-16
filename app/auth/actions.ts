@@ -72,6 +72,11 @@ export async function signupAction(formData: FormData) {
     if (error.message.includes('User already registered')) {
       return { error: 'An account with this email already exists. Please sign in.' };
     }
+    if (error.message.toLowerCase().includes('rate limit') || error.message.toLowerCase().includes('email')) {
+      return {
+        error: 'Supabase email limit exceeded (free tier allows only 3 emails/hr). To fix this permanently: In Supabase -> Authentication -> Providers -> Email, turn OFF "Confirm email" and click Save.'
+      };
+    }
     return { error: error.message };
   }
 
